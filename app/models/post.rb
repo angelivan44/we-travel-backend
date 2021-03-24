@@ -6,4 +6,11 @@ class Post < ApplicationRecord
   has_many :comments
 
   has_many_attached :images
+
+  validates :title, :body, presence: true
+  validates :title, length: { maximum: 140 }
+  validates :body, length: { maximum: 10000 }
+  validates :images, presence: true
+
+  attribute :comments_count, :likes_count, :integer, default: 0
 end

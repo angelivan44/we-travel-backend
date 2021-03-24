@@ -17,4 +17,6 @@ class User < ApplicationRecord
   has_many :comments
 
   has_one_attached :avatar
+
+  attribute :role, :string, default: "user"
 end
