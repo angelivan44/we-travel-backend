@@ -12,5 +12,6 @@ class Post < ApplicationRecord
   validates :body, length: { maximum: 10000 }
   validates :images, presence: true
 
-  attribute :comments_count, :likes_count, :integer, default: 0
+  attribute :comments_count, :integer, default: 0
+  attribute :likes_count, :integer, default: 0
 end
