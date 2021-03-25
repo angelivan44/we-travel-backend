@@ -10,8 +10,15 @@ class Post < ApplicationRecord
   validates :title, :body, presence: true
   validates :title, length: { maximum: 140 }
   validates :body, length: { maximum: 10000 }
-  validates :images, presence: true
 
   attribute :comments_count, :integer, default: 0
   attribute :likes_count, :integer, default: 0
+
+  def service_url
+    images.map{ |image| (url_for(image)).as_json }
+  end
+  def url_for(data)
+    Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
+    Rails.application.routes.url_helpers.url_for(data)
+  end
 end

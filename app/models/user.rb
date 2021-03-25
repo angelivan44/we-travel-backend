@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   attribute :role, :string, default: "user"
+  validates :email, uniqueness: true
+  validates :username, uniqueness: true
 
   def invalidate_token
     update(token: nil)
@@ -27,5 +29,14 @@ class User < ApplicationRecord
   def self.valid_login?(email, password)
     user = find_by(email: email)
     user if user&.authenticate(password)
+  end
+
+  def service_url
+    if avatar.attached?
+      Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
+      return  Rails.application.routes.url_helpers.url_for(avatar)
+    else
+      return ""
+    end
   end
 end

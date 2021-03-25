@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     user = User.valid_login?(params[:email], params[:password])
     if user 
       user.regenerate_token
-      render json: user
+      render json: user.as_json(include: [:followers, :following, :posts , :comments, :likes ], methods: :service_url)
     end
 
   end
