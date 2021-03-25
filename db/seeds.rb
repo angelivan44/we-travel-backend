@@ -5,6 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+p "creando los usuarions"
+
 user = User.create(name: "test", email: "test@mail.com", password: "123456", token: "asdasdasdasdasd", username: "test1")
 user.avatar.attach(io: File.open('app/assets/logo.png'), filename: 'logo.png')
 
@@ -20,37 +23,49 @@ user2.following.push(user3)
 
 user3.following.push(user)
 
+p "creando los departamentos"
+
 huancayo = Department.create(name: "Huancayo", description: "lsaslaklsklasklask")
 ica = Department.create(name: "Ica", description: "jejekeleleklelelekl")
+
+p "creando el post"
 
 post = Post.new(title: "test", body: "asdasdasdasdsadsadsadsa")
 post.user = user
 post.department = huancayo
 post.images.attach(io: File.open('app/assets/logo.png'), filename: 'logo.png')
-post.save
+
 
 post2 = Post.new(title: "test2", body: "jejejaksjdlskadjlskdjklsadjklewe")
 post2.user = user2
 post2.department = ica
 post2.images.attach(io: File.open('app/assets/logo.png'), filename: 'logo.png')
-post2.save
 
+p "creando el commentario"
 comment1 = Comment.new(body: "buen dato crack")
 comment1.user = user2
-comment1.post = post
 comment1.save
+post.comments.push(comment1)
+
 
 
 comment2 = Comment.new(body: "ggwp")
 comment2.user = user
-comment2.post = post2
 comment2.save
 
+post2.comments.push(comment2)
+
+p "creando el like"
 likepost = Like.new
 likepost.user = user
-likepost.post = post
-like.save
+likepost.save
+
+post.likes.push(likepost)
 
 likecomment = Like.new
 likecomment.user = user2
-likecomment.comment = comment2
+
+post2.likes.push(likecomment)
+
+post.save
+post2.save

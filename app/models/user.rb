@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  has_secure_token
+  has_secure_password
 
   has_many :follows
 
@@ -19,4 +19,13 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   attribute :role, :string, default: "user"
+
+  def invalidate_token
+    update(token: nil)
+  end
+
+  def self.valid_login?(email, password)
+    user = find_by(email: email)
+    user if user&.authenticate(password)
+  end
 end
