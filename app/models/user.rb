@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :comments
 
   has_one_attached :avatar
+  has_one_attached :cover
 
   attribute :role, :string, default: "user"
   validates :email, uniqueness: true
@@ -31,10 +32,19 @@ class User < ApplicationRecord
     user if user&.authenticate(password)
   end
 
-  def service_url
+  def avatar_url
     if avatar.attached?
       Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
       return  Rails.application.routes.url_helpers.url_for(avatar)
+    else
+      return ""
+    end
+  end
+
+  def cover_url
+    if cover.attached?
+      Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
+      return  Rails.application.routes.url_helpers.url_for(cover)
     else
       return ""
     end
