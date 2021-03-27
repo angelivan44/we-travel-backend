@@ -18,7 +18,7 @@ class Post < ApplicationRecord
     images.map{ |image| (url_for(image)).as_json }
   end
   def url_for(data)
-    Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
+    Rails.application.routes.default_url_options[:host] = 'https://travel-blog-cp.herokuapp.com/'
     Rails.application.routes.url_helpers.url_for(data)
   end
 end
