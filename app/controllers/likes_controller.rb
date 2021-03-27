@@ -7,11 +7,21 @@ class LikesController < ApplicationController
     like.user = current_user
     if params[:post_id]
       post = Post.find(params[:post_id])
-      post.likes.push(like)
+      currentLike = post.likes.find{ |like| like.user === current_user}
+      if !currentLike
+        post.likes.push(like)
+      else
+        like = currentLike
+      end
     end
     if params[:comment_id]
       comment = Comment.find(params[:comment_id])
-      comment.likes.push(like)
+      currentLike = comment.likes.find{ |like| like.user === current_user}
+      if !currentLine
+        comment.likes.push(like)
+      else
+        like = currentLike
+      end
     end
     if like.save
       render json: like

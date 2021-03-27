@@ -1,19 +1,15 @@
 class UserPolicy < ApplicationPolicy
 
-  def show?
-    user == record
-  end
-
   def update?
     user == record
   end
 
   def edit?
-    show?
+    user == record
   end
 
   def destroy?
-    show?
+    user == record
   end
 
   class Scope
