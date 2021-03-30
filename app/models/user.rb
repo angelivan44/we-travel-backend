@@ -34,7 +34,7 @@ class User < ApplicationRecord
 
   def avatar_url
     if avatar.attached?
-      Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
+      Rails.application.routes.default_url_options[:host] = 'https://travel-blog-cp.herokuapp.com'
       return  Rails.application.routes.url_helpers.url_for(avatar)
     else
       return ""
@@ -43,7 +43,7 @@ class User < ApplicationRecord
 
   def cover_url
     if cover.attached?
-      Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
+      Rails.application.routes.default_url_options[:host] = 'https://travel-blog-cp.herokuapp.com'
       return  Rails.application.routes.url_helpers.url_for(cover)
     else
       return ""
