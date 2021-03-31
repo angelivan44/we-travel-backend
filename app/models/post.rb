@@ -2,10 +2,10 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :department
 
-  has_many :likes ,as: :likeable
-  has_many :comments ,as: :commentable
+  has_many :likes ,as: :likeable , dependent: :destroy
+  has_many :comments ,as: :commentable , dependent: :destroy
 
-  has_many_attached :images
+  has_many_attached :images ,dependent: :destroy
 
   validates :title, :body, presence: true
   validates :title, length: { maximum: 140 }

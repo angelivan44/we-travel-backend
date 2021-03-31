@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: :create
+  skip_before_action :require_login, only: [:create , :valid] 
   include Pundit
   
   def show
@@ -12,6 +12,15 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       render json: user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
+    else
+      render json: user.errors
+    end
+  end
+
+  def valid
+    user = User.new(user_params)
+    if user.valid?
+      render json: { message: "ok" }
     else
       render json: user.errors
     end
