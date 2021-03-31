@@ -8,14 +8,40 @@
 
 p "creando los usuarions"
 
-user = User.create(name: "test", email: "test@mail.com", password: "123456", token: "asdasdasdasdasd", username: "test1")
-user.avatar.attach(io: File.open('app/assets/logo.png'), filename: 'logo.png')
+user = User.create(name: "test", 
+email: "test@mail.com", 
+password: "123456", 
+token: "asdasdasdasdasd", 
+username: "test1",
+birthdate: "12/01/1999",
+description: "A passionate Full-Stack developer from Peru peru",
+social: "@test")
+user.avatar.attach(io: File.open('app/assets/avatar.png'), filename: 'avatar.png')
+user.cover.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
 
-user2 = User.create(name: "test2", email: "test2@mail.com", password: "123456", token: "asdasdasdasdasd", username: "test2")
-user2.avatar.attach(io: File.open('app/assets/logo.png'), filename: 'logo.png')
+user2 = User.create(name: "test2", 
+email: "test2@mail.com", 
+password: "123456", 
+token: "asdasdasdasdasd", 
+username: "test2",
+birthdate: "12/01/1999",
+description: "A passionate Full-Stack developer from Peru peru",
+social: "@test2"
+)
+user2.avatar.attach(io: File.open('app/assets/avatar.png'), filename: 'avatar.png')
+user2.cover.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
 
-user3 = User.create(name: "test3", email: "test3@mail.com", password: "123456", token: "asdasdasdasdasd", username: "test3")
-user3.avatar.attach(io: File.open('app/assets/logo.png'), filename: 'logo.png')
+
+user3 = User.create(name: "test3", 
+email: "test3@mail.com", 
+password: "123456", 
+token: "asdasdasdasdasd", 
+username: "test3",
+birthdate: "12/01/1999",
+description: "A passionate Full-Stack developer from Peru peru",
+social: "@test3")
+user3.avatar.attach(io: File.open('app/assets/avatar.png'), filename: 'avatar.png')
+user3.cover.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
 
 user.following.push(user2)
 
@@ -26,20 +52,27 @@ user3.following.push(user)
 p "creando los departamentos"
 
 huancayo = Department.create(name: "Huancayo", description: "lsaslaklsklasklask")
+huancayo.cover.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
+
 ica = Department.create(name: "Ica", description: "jejekeleleklelelekl")
+ica.cover.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
 
 p "creando el post"
 
 post = Post.new(title: "test", body: "asdasdasdasdsadsadsadsa")
 post.user = user
 post.department = huancayo
-post.images.attach(io: File.open('app/assets/logo.png'), filename: 'logo.png')
+post.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
+post.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
+post.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
 
 
 post2 = Post.new(title: "test2", body: "jejejaksjdlskadjlskdjklsadjklewe")
 post2.user = user2
 post2.department = ica
-post2.images.attach(io: File.open('app/assets/logo.png'), filename: 'logo.png')
+post2.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
+post2.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
+post2.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
 
 p "creando el commentario"
 comment1 = Comment.new(body: "buen dato crack")

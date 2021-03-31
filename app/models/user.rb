@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_secure_token
   has_secure_password
 
-  has_many :follows
+  has_many :follows 
 
   has_many :follower_relationships, foreign_key: :following_id, class_name: 'Follow'
   has_many :followers, through: :follower_relationships, source: :follower
@@ -12,12 +12,12 @@ class User < ApplicationRecord
   has_many :following_relationships, foreign_key: :user_id, class_name: 'Follow'
   has_many :following, through: :following_relationships, source: :following
 
-  has_many :posts
-  has_many :likes
-  has_many :comments
+  has_many :posts ,dependent: :destroy
+  has_many :likes , dependent: :destroy
+  has_many :comments , dependent: :destroy
 
-  has_one_attached :avatar
-  has_one_attached :cover
+  has_one_attached :avatar , dependent: :destroy
+  has_one_attached :cover , dependent: :destroy
 
   attribute :role, :string, default: "user"
   validates :email, uniqueness: true

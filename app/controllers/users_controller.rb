@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: :create
+  skip_before_action :require_login, only: [:create , :valid] 
   include Pundit
   
   def show
     
     user = User.find(params[:id])
-    render json: user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: :service_url)
+    render json: user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
   end
 
   def create 
@@ -17,12 +17,38 @@ class UsersController < ApplicationController
     end
   end
 
+  def valid
+    user = User.new(user_params)
+    if user.valid?
+      render json: { message: "ok" }
+    else
+      render json: user.errors
+    end
+  end
+
   def update
     authorize current_user
-    if current_user.update(user_params)
+    if params[:following_id]
+      following = User.find(params[:following_id])
+      statusFollowing = current_user.following.find{ |user| user.id == following.id}
+      
+      if statusFollowing
+        filterFollings = current_user.following.filter {|user| user.id != statusFollowing.id}
+        current_user.following = filterFollings
+      else
+        current_user.following.push(following)
+      end
+      if current_user.save
+        render json: current_user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
+      else
+        render json: current_user.errors
+      end
+    else 
+      if current_user.update(user_params)
       render json: current_user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
-    else
+      else
       render json: current_user.errors
+      end
     end
   end
 
