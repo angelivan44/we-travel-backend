@@ -16,6 +16,8 @@ class PostsController < ApplicationController
     post = Post.new(post_params)
     department = Department.find(params[:department_id])
     post.department = department
+    imagesData = [params[:cover], params[:main], params[:last]]
+    post.images = imagesData
     post.user = current_user
     if post.save
       render json: post.as_json(methods: :service_url, include: [:likes, :comments, :user])
@@ -47,7 +49,7 @@ class PostsController < ApplicationController
   private 
 
   def post_params
-    params.permit(:title, :body, :images )
+    params.permit(:title, :body )
   end
 
   def current_post
