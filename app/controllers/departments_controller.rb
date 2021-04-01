@@ -19,7 +19,7 @@ class DepartmentsController < ApplicationController
     if department.save
       render json: department.as_json(methods: [:service_url, :posts_data])
     else
-      render json: department.errors
+      render json: department.errors , status: :unprocessable_entity
     end
   end
 
@@ -28,7 +28,7 @@ class DepartmentsController < ApplicationController
     if current_departmen.update(department_params)
       render json: current_departmen.as_json(methods: [:service_url, :posts_data])
     else
-      render json: current_departmen.errors
+      render json: current_departmen.errors , status: :unprocessable_entity
     end
   end
 
@@ -37,7 +37,7 @@ class DepartmentsController < ApplicationController
     if current_departmen.destroy
       render json: {message: "ok"}
     else
-      render json: current_departmen.errors
+      render json: current_departmen.errors , status: :unprocessable_entity
     end
   end
 

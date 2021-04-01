@@ -22,7 +22,7 @@ class PostsController < ApplicationController
     if post.save
       render json: post.as_json(methods: :service_url, include: [:likes, :comments, :user])
     else
-      render json: post.errors
+      render json: post.errors , status: :unprocessable_entity
     end
 
   end
@@ -35,8 +35,8 @@ class PostsController < ApplicationController
     if(current_post.update(post_params))
       render json: current_post.as_json(include: [:likes, :comments, :user])
     else
-      render json: current_post.errors
-    end
+      render json: current_post.errors , status: :unprocessable_entity
+    end 
   end
 
   def destroy

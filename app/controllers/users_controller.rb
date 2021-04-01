@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     if user.save
       render json: user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
     else
-      render json: user.errors
+      render json: user.errors , status: :unprocessable_entity
     end
   end
 
@@ -41,13 +41,13 @@ class UsersController < ApplicationController
       if current_user.save
         render json: current_user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
       else
-        render json: current_user.errors
+        render json: current_user.errors , status: :unprocessable_entity
       end
     else 
       if current_user.update(user_params)
       render json: current_user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
       else
-      render json: current_user.errors
+      render json: current_user.errors , status: :unprocessable_entity
       end
     end
   end
