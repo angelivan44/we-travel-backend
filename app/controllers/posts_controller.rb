@@ -4,11 +4,11 @@ class PostsController < ApplicationController
   include Pundit
   def index
     posts = Post.all
-    render json: posts.map{|post| post.as_json(methods: :service_url)}
+    render json: posts.map{|post| post.as_json(methods: :service_url , include: :user)}
   end
 
   def show
-    render json: current_post.as_json(methods: :service_url, include: [:likes, :comments ])
+    render json: current_post.as_json(methods: :service_url, include: [:likes, :comments , :user])
   end
     
   def create 
@@ -18,7 +18,7 @@ class PostsController < ApplicationController
     post.department = department
     post.user = current_user
     if post.save
-      render json: post.as_json(methods: :service_url, include: [:likes, :comments ])
+      render json: post.as_json(methods: :service_url, include: [:likes, :comments, :user])
     else
       render json: post.errors
     end
@@ -28,7 +28,7 @@ class PostsController < ApplicationController
   def update
     authorize current_post
     if(current_post.update(post_params))
-      render json: current_post.as_json(include: [:likes, :comments])
+      render json: current_post.as_json(include: [:likes, :comments, :user])
     else
       render json: current_post.errors
     end
