@@ -9,7 +9,7 @@ class DepartmentsController < ApplicationController
   end
   
   def show
-    render json: current_departmen.as_json(include: [:posts] , methods: :service_url)
+    render json: current_departmen.as_json(include: [posts: {methods: :service_url}], methods: :service_url)
   end
 
   def create
@@ -17,7 +17,7 @@ class DepartmentsController < ApplicationController
     department = Department.new(department_params)
     authorize department
     if department.save
-      render json: department.as_json(include: [:posts] , methods: :service_url)
+      render json: department.as_json(include: [posts: {methods: :service_url}] , methods: :service_url)
     else
       render json: department.errors
     end
@@ -26,7 +26,7 @@ class DepartmentsController < ApplicationController
   def update
     authorize current_departmen
     if current_departmen.update(department_params)
-      render json: current_departmen.as_json(include: [:posts] , methods: :service_url)
+      render json: current_departmen.as_json(include: [posts: {methods: :service_url}] , methods: :service_url)
     else
       render json: current_departmen.errors
     end
