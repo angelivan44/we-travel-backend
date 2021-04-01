@@ -9,7 +9,7 @@ class DepartmentsController < ApplicationController
   end
   
   def show
-    render json: current_departmen.as_json(include: [posts: {methods: :service_url}], methods: :service_url)
+    render json: current_departmen.as_json(include: [[posts: {methods: :service_url}], user: {methods: :avatar_url}], methods: :service_url)
   end
 
   def create
