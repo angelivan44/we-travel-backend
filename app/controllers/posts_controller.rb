@@ -4,11 +4,11 @@ class PostsController < ApplicationController
   include Pundit
   def index
     posts = Post.all
-    render json: posts.map{|post| post.as_json(methods: :service_url , include: :user)}
+    render json: posts.map{|post| post.as_json(methods: :service_url , include: {user: {methods: :avatar_url}})}
   end
 
   def show
-    render json: current_post.as_json(methods: :service_url, include: [:likes, :comments , :user])
+    render json: current_post.as_json(methods: :service_url, include: [:likes, :comments , {user: {methods: :avatar_url}}])
   end
     
   def create 
