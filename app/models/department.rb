@@ -10,4 +10,8 @@ class Department < ApplicationRecord
       return ""
     end
   end
+
+  def posts_data
+    dataRender  = posts.map{|post| post.as_json(include: [user: {methods: :avatar_url}] , methods: :service_url)}
+  end
 end
