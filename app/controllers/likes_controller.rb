@@ -26,7 +26,7 @@ class LikesController < ApplicationController
     if like.save
       render json: like
     else
-      render json: like.errors :unprocessable_entity
+      render json: like.errors status: :unprocessable_entity
     end
 
   end
