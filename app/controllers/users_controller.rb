@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   include Pundit
   
   def show
-    
     user = User.find(params[:id])
     render json: user.as_json(include: [ :comments, :likes] , methods: [:avatar_url , :cover_url , :followers_data , :following_data, :posts_data])
   end
@@ -39,13 +38,13 @@ class UsersController < ApplicationController
         current_user.following.push(following)
       end
       if current_user.save
-        render json: current_user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
+        render json: current_user.as_json(include: [ :comments, :likes] , methods: [:avatar_url , :cover_url , :followers_data , :following_data, :posts_data])
       else
         render json: current_user.errors , status: :unprocessable_entity
       end
     else 
       if current_user.update(user_params)
-      render json: current_user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
+      render json: current_user.as_json(include: [ :comments, :likes] , methods: [:avatar_url , :cover_url , :followers_data , :following_data, :posts_data])
       else
       render json: current_user.errors , status: :unprocessable_entity
       end
