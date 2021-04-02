@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: [:create , :valid] 
+  skip_before_action :require_login, only: [:create , :valid, :index] 
   include Pundit
-  
+  def index
+    users = User.all
+    orderDAta = users.sort_by{|user| -user.likes.length}
+    mostPopularUsers = orderDAta.slice(0,3)
+    render json: mostPopularUsers.map{|user| user.as_json(methods: :avatar_url)}
+  end
   def show
     user = User.find(params[:id])
     render json: user.as_json(include: [ :comments, :likes] , methods: [:avatar_url , :cover_url , :followers_data , :following_data, :posts_data])
