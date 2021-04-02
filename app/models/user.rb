@@ -49,4 +49,16 @@ class User < ApplicationRecord
       return ""
     end
   end
+
+  def followers_data
+    followers.map{ |follow| follow.as_json(methods: :avatar_url)}
+  end
+
+  def following_data
+    following.map{ |follow| follow.as_json(methods: :avatar_url)}
+  end
+
+  def  posts_data
+    posts.map{ |post| post.as_json(methods: :service_url)}
+  end
 end

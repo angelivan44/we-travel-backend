@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def show
     
     user = User.find(params[:id])
-    render json: user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
+    render json: user.as_json(include: [ :comments, :likes] , methods: [:avatar_url , :cover_url , :followers_data , :following_data, :posts_data])
   end
 
   def create 
