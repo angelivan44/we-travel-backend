@@ -17,7 +17,7 @@ class LikesController < ApplicationController
     if params[:comment_id]
       comment = Comment.find(params[:comment_id])
       currentLike = comment.likes.find{ |like| like.user === current_user}
-      if !currentLine
+      if !currentLike
         comment.likes.push(like)
       else
         like = currentLike
