@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include Pundit
   def index
     users = User.all
-    orderDAta = users.sort_by{|user| -user.likes.length}
+    orderDAta = users.sort_by{|user| -user.followers.length}
     mostPopularUsers = orderDAta.slice(0,3)
     render json: mostPopularUsers.map{|user| user.as_json(methods: :avatar_url)}
   end
