@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
     if comment.save
       render json: comment.as_json(include: [:likes, :comments])
     else
-      render json: comment.errors
+      render json: comment.errors , status: :unprocessable_entity
     end
   end
 

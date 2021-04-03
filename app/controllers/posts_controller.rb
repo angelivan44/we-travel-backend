@@ -4,11 +4,15 @@ class PostsController < ApplicationController
   include Pundit
   def index
     posts = Post.all
-    render json: posts.map{|post| post.as_json(methods: :service_url , include: {user: {methods: :avatar_url}})}
+    popularPosts = posts.sort_by{ |post| -post.likes_count}.slice(0,3)
+    newPosts = posts.slice(-3,3)
+    renderPopular = popularPosts.map{ |post| post.as_json(methods: :service_url , include: {user: {methods: :avatar_url}})}
+    renderNewPost = newPosts.map{ |post| post.as_json(methods: :service_url , include: {user: {methods: :avatar_url}})}
+    render json: {populars: renderPopular, new: renderNewPost}
   end
 
   def show
-    render json: current_post.as_json(methods: :service_url, include: [:likes, :comments , {user: {methods: :avatar_url}}])
+    render json: current_post.as_json(methods: [:service_url, :comments_data], include: [:likes , {user: {methods: :avatar_url}}])
   end
     
   def create 
@@ -22,7 +26,7 @@ class PostsController < ApplicationController
     if post.save
       render json: post.as_json(methods: :service_url, include: [:likes, :comments, :user])
     else
-      render json: post.errors
+      render json: post.errors , status: :unprocessable_entity
     end
 
   end
@@ -35,8 +39,8 @@ class PostsController < ApplicationController
     if(current_post.update(post_params))
       render json: current_post.as_json(include: [:likes, :comments, :user])
     else
-      render json: current_post.errors
-    end
+      render json: current_post.errors , status: :unprocessable_entity
+    end 
   end
 
   def destroy

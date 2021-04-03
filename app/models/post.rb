@@ -21,4 +21,8 @@ class Post < ApplicationRecord
     Rails.application.routes.default_url_options[:host] = 'https://travel-blog-cp.herokuapp.com/'
     Rails.application.routes.url_helpers.url_for(data)
   end
+
+  def comments_data
+    comments.map{ |comment| comment.as_json(include: [user: {methods: :avatar_url}])}
+  end
 end

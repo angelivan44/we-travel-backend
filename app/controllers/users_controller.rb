@@ -1,11 +1,15 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: [:create , :valid] 
+  skip_before_action :require_login, only: [:create , :show, :valid, :index] 
   include Pundit
-  
+  def index
+    users = User.all
+    orderDAta = users.sort_by{|user| -user.followers.length}
+    mostPopularUsers = orderDAta.slice(0,3)
+    render json: mostPopularUsers.map{|user| user.as_json(methods: :avatar_url)}
+  end
   def show
-    
     user = User.find(params[:id])
-    render json: user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
+    render json: user.as_json(include: [ :comments, :likes] , methods: [:avatar_url , :cover_url , :followers_data , :following_data, :posts_data])
   end
 
   def create 
@@ -13,7 +17,7 @@ class UsersController < ApplicationController
     if user.save
       render json: user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
     else
-      render json: user.errors
+      render json: user.errors , status: :unprocessable_entity
     end
   end
 
@@ -39,15 +43,15 @@ class UsersController < ApplicationController
         current_user.following.push(following)
       end
       if current_user.save
-        render json: current_user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
+        render json: current_user.as_json(include: [ :comments, :likes] , methods: [:avatar_url , :cover_url , :followers_data , :following_data, :posts_data])
       else
-        render json: current_user.errors
+        render json: current_user.errors , status: :unprocessable_entity
       end
     else 
       if current_user.update(user_params)
-      render json: current_user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
+      render json: current_user.as_json(include: [ :comments, :likes] , methods: [:avatar_url , :cover_url , :followers_data , :following_data, :posts_data])
       else
-      render json: current_user.errors
+      render json: current_user.errors , status: :unprocessable_entity
       end
     end
   end
