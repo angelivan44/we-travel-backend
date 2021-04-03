@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: [:create , :valid, :index] 
+  skip_before_action :require_login, only: [:create , :show, :valid, :index] 
   include Pundit
   def index
     users = User.all

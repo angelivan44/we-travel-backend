@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    render json: current_post.as_json(methods: :service_url, include: [:likes, :comments , {user: {methods: :avatar_url}}])
+    render json: current_post.as_json(methods: [:service_url, :comments_data], include: [:likes , {user: {methods: :avatar_url}}])
   end
     
   def create 
