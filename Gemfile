@@ -17,7 +17,7 @@ gem 'puma', '~> 4.1'
 gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'pundit', '~> 2.1.0'
-gem 'aws-sdk-s3'
+gem 'cloudinary'
 gem 'rack-cors'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

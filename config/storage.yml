@@ -7,13 +7,15 @@ local:
   root: <%= Rails.root.join("storage") %>
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
-amazon:
-  service: S3
-  access_key_id: URGORQV4725ZGPNIRYX4
-  secret_access_key: KkaV3lBnIhr0zCkjeMGg0aguRXnVvn4gxWSZAE5wU9k
-  region: sfo3
-  bucket: clothestore
-  endpoint: 'https://sfo3.digitaloceanspaces.com/'
+cloudinary:
+  service: Cloudinary
+  cloud_name: "wetravelcapstone"
+  api_key: "253118864488226"
+  api_secret: "QCweYZIVl2jkOcfHDT8SCFI20Zw"
+  secure: true
+  cdn_subdomain: true
+
+
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
