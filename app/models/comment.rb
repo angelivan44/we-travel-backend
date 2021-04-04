@@ -5,5 +5,7 @@ class Comment < ApplicationRecord
   has_many :comments ,as: :commentable , dependent: :destroy
 
   validates :body, presence: true, length: { maximum: 500 }
+  attribute :comments_count, :integer, default: 0
+  attribute :likes_count, :integer, default: 0
 
 end
