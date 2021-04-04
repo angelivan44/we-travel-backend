@@ -4,8 +4,10 @@ class PostsController < ApplicationController
   include Pundit
   def index
     posts = Post.all
-    popularPosts = posts.sort_by{ |post| -post.likes_count}.slice(0,3)
-    newPosts = posts.slice(-3,3)
+    min = posts.length
+    min <= 3 ? slic = min : slic = 3 
+    popularPosts = posts.sort_by{ |post| -post.likes_count}.slice(0,slic)
+    newPosts = posts.slice(-slic,slic)
     renderPopular = popularPosts.map{ |post| post.as_json(methods: :service_url , include: {user: {methods: :avatar_url}})}
     renderNewPost = newPosts.map{ |post| post.as_json(methods: :service_url , include: {user: {methods: :avatar_url}})}
     render json: {populars: renderPopular, new: renderNewPost}

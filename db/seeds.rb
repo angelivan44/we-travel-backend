@@ -74,6 +74,13 @@ post2.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg'
 post2.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
 post2.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
 
+post3 = Post.new(title: "test3", body: "jejejaksjdlskadjlskdjklsadjklewe")
+post3.user = user2
+post3.department = ica
+post3.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
+post3.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
+post3.images.attach(io: File.open('app/assets/cover.jpg'), filename: 'cover.jpg')
+
 p "creando el commentario"
 comment1 = Comment.new(body: "buen dato crack")
 comment1.user = user2
@@ -102,3 +109,4 @@ post2.likes.push(likecomment)
 
 post.save
 post2.save
+post3.save
