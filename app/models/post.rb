@@ -23,6 +23,6 @@ class Post < ApplicationRecord
   end
 
   def comments_data
-    comments.map{ |comment| comment.as_json(include: [user: {methods: :avatar_url},comments:{include: [user: {methods: :avatar_url},likes:{include: :likes}]},likes:{include: :likes}])}
+    comments.map{ |comment| comment.as_json(include: [user: {methods: :avatar_url},comments:{include: [user: {methods: :avatar_url},likes:{include: :likeable}]},likes:{include: :likeable}])}
   end
 end
