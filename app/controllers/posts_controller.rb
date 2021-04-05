@@ -26,7 +26,7 @@ class PostsController < ApplicationController
     post.images = imagesData
     post.user = current_user
     if post.save
-      render json: post.as_json(methods: :service_url, include: [:likes, :comments, :user])
+      render json: post.as_json(methods: [:service_url, :comments_data], include: [:likes , {user: {methods: :avatar_url}}])
     else
       render json: post.errors , status: :unprocessable_entity
     end
@@ -39,7 +39,7 @@ class PostsController < ApplicationController
     params[:main] || current_post.images[1] = params[:main]
     params[:last] || current_post.images[2] = params[:last]
     if(current_post.update(post_params))
-      render json: current_post.as_json(include: [:likes, :comments, :user])
+      render json: current_post.as_json(methods: [:service_url, :comments_data], include: [:likes , {user: {methods: :avatar_url}}])
     else
       render json: current_post.errors , status: :unprocessable_entity
     end 
