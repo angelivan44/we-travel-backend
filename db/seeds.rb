@@ -85,7 +85,7 @@ ica = Department.create(name: "Ica", description: "Departamento costeño cuyas p
 ica.cover.attach(io: File.open('app/assets/Ica.jpeg'), filename: 'Ica.jpeg')
 
 junin = Department.create(name: "Junín", description: "El departamento de Junín, ubicado en la sierra y selva central del Perú, es tierra de cataratas y valles de tierra con paisajes en su estado más natural. Podemos encontrar pueblos con profunda vocación religiosa como Tarma y Jauja, además de la Reserva Nacional con aves y mamíferos del ande. A su vez, Junín cuenta con extensos bosques en la provincia de Satipo y Chanchamayo, con jardines botánicos y albergues en comunidades nativas.")
-junin.cover.attach(io: File.open('app/assets/Cuzco.jpeg'), filename: 'Cuzco.jpeg')
+junin.cover.attach(io: File.open('app/assets/junin.jpg'), filename: 'junin.jpg')
 
 libertad = Department.create(name: "La Libertad", description: "Sede de los impresionantes y famosos templos, pirámides y ciudades de barro de Chan Chan, La Libertad es un departamento ubicado en la costa norte del Perú. Su Imponente arquitectura colonial y costumbres arraigadas como la pesca en Caballitos de Totora (tradicionales embarcaciones de la costa norteña) son muestras claras que es un destino muy atractivo para el turismo en general. Asimismo, destaca por ser la cuna de la Marinera, baile nacional del Perú, y por sus playas, que atraen a miles de surfistas del mundo.")
 libertad.cover.attach(io: File.open('app/assets/La Libertad.jpeg'), filename: 'La Libertad.jpeg')
@@ -106,7 +106,7 @@ moquegua = Department.create(name: "Moquegua", description: "Este departamento u
 moquegua.cover.attach(io: File.open('app/assets/Moquegua.jpeg'), filename: 'Moquegua.jpeg')
 
 pasco = Department.create(name: "Pasco", description: "Pasco se ubica en el centro del Perú, entre la sierra y la selva. Es una tierra de contrastes marcados, donde la sierra y la selva forman una cadena de frías montañas y marcada vegetación. Esta región está poblada por comunidades nativas y ciudades como Huancabamba, Oxapampa, Pozuzo y Villa Rica. Posee una gran diversidad de flora y fauna; además de numerosas cataratas.")
-pasco.cover.attach(io: File.open('app/assets/Cuzco.jpeg'), filename: 'Cuzco.jpeg')
+pasco.cover.attach(io: File.open('app/assets/Pasco.jpeg'), filename: 'Pasco.jpeg')
 
 piura = Department.create(name: "Piura", description: "Ubicado en el norte del Perú, Piura posee los balnearios y playas favoritas de turistas y surfistas: Máncora, Colán, Los Órganos, Vichayito, Cabo Blanco (célebre por hospedar al escritor Ernest Hemingway) y Lobitos. En esta región podemos encontrar templos coloniales y pueblos de artesanos como Chulucanas y Catacaos. En este departamento norteño se sitúa el territorio árido más extenso del Perú: el desierto de Sechura.")
 piura.cover.attach(io: File.open('app/assets/Piura.jpeg'), filename: 'Piura.jpeg')
