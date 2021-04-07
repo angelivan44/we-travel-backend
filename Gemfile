@@ -19,6 +19,7 @@ gem 'devise'
 gem 'pundit', '~> 2.1.0'
 gem 'cloudinary'
 gem 'rack-cors'
+gem 'active_model_otp'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

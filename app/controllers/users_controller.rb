@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: [:create , :show, :valid, :index] 
+  skip_before_action :require_login, only: [:create , :show, :valid, :index, :otp_validation] 
   include Pundit
   def index
     users = User.all
@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   def create 
     user = User.new(user_params)
     if user.save
+      p user.otp_code
       render json: user.as_json(include: [:followers, :following, :posts , :comments, :likes] , methods: [:avatar_url , :cover_url])
     else
       render json: user.errors , status: :unprocessable_entity
@@ -23,10 +24,22 @@ class UsersController < ApplicationController
 
   def valid
     user = User.new(user_params)
-    if user.valid?
-      render json: { message: "ok" }
+    if user.save
+      code = user.otp_code
+      p code
+      render json: { message: "ok" , id: user.id}
     else
       render json: user.errors
+    end
+  end
+
+  def otp_validation
+    user = User.find(params[:id])
+    code = params[:pin]
+    if user.authenticate_otp(code , drift: 120)
+      render json: {message: "ok"}
+    else
+      render json: {message: "pin incorrect"}
     end
   end
 
