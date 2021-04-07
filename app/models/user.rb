@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_secure_token
   has_secure_password
+  has_one_time_password
 
   has_many :follows 
 
