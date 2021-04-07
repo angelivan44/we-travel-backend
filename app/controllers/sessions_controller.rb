@@ -16,11 +16,4 @@ class SessionsController < ApplicationController
     render json: {message: "ok"}
   end
 
-  def sendemail
-        # Tell the UserMailer to send a welcome email after save
-    UserMailer.welcome_email("angelhuayas@gmail.com").deliver_now
-        
-    render json: {message:"creado"}
-
-  end
 end
