@@ -26,7 +26,6 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       code = user.otp_code
-      p code
       render json: { message: "ok" , id: user.id}
     else
       render json: user.errors
